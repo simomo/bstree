@@ -6,7 +6,7 @@ type BSTree struct {
 	rootNode *Node
 }
 
-func (bsTree *BSTree) init(value int) bool {
+func (bsTree *BSTree) Init(value int) bool {
 	bsTree.rootNode = &Node{value: value}
 	return true
 }
@@ -21,22 +21,25 @@ func (bsTree *BSTree) addNode(parent *Node, value int) {
 	}
 }
 
-func (bsTree *BSTree) insert(parent *Node, value int) bool {
-	if parent == nil {
-		bsTree.init(value)
-	} else {
-		fmt.Printf("%+v", *parent)
-		candidatePosition := parent.leftChild
-		if value > parent.value {
-			candidatePosition = parent.rightChild
-		}
+func (bsTree *BSTree) Insert(value int) bool {
+	if bsTree.rootNode == nil {
+		return bsTree.Init(value)
+	}
+	return bsTree._insert(bsTree.rootNode, value)
+}
 
-		if candidatePosition == nil {
-			candidatePosition = &Node{value: value}
-			println("%s\n|\n%s", parent.value, value)
-		} else {
-			bsTree.insert(candidatePosition, value)
-		}
+func (bsTree *BSTree) _insert(parent *Node, value int) bool {
+	fmt.Printf("%+v", *parent)
+	candidatePosition := parent.leftChild
+	if value > parent.value {
+		candidatePosition = parent.rightChild
+	}
+
+	if candidatePosition == nil {
+		candidatePosition = &Node{value: value}
+		println("%s\n|\n%s", parent.value, value)
+	} else {
+		bsTree._insert(candidatePosition, value)
 	}
 
 	return true
