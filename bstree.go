@@ -1,13 +1,13 @@
 package bstree
 
-import "fmt"
-
 type BSTree struct {
 	rootNode *Node
+	insert   func(*Node, int) bool
 }
 
 func (bsTree *BSTree) Init(value int) bool {
 	bsTree.rootNode = &Node{value: value}
+	bsTree.insert = secondInserter
 	return true
 }
 
@@ -25,24 +25,7 @@ func (bsTree *BSTree) Insert(value int) bool {
 	if bsTree.rootNode == nil {
 		return bsTree.Init(value)
 	}
-	return bsTree._insert(bsTree.rootNode, value)
-}
-
-func (bsTree *BSTree) _insert(parent *Node, value int) bool {
-	fmt.Printf("%+v", *parent)
-	candidatePosition := parent.leftChild
-	if value > parent.value {
-		candidatePosition = parent.rightChild
-	}
-
-	if candidatePosition == nil {
-		candidatePosition = &Node{value: value}
-		println("%s\n|\n%s", parent.value, value)
-	} else {
-		bsTree._insert(candidatePosition, value)
-	}
-
-	return true
+	return bsTree.insert(bsTree.rootNode, value)
 }
 
 type Node struct {
