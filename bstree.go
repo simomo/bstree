@@ -1,32 +1,46 @@
 package bstree
 
+const (
+	INSERT1 = iota
+	INSERT2
+
+	TRAV_PRE = iota
+	TRAV_IN
+	TRAV_POST
+)
+
 type BSTree struct {
 	rootNode *Node
-	insert   func(*Node, int) bool
+
+	insertMode int
+	insert1    func(*Node, int) bool
+	insert2    func(*Node, int) bool
+
+	traverseMode  int
+	traverserPre  func(*BSTree) []*Node
+	traverserIn   func(*BSTree) []*Node
+	traverserPost func(*BSTree) []*Node
 }
 
 func (bsTree *BSTree) Init(value int) bool {
-	bsTree.rootNode = &Node{value: value}
-	bsTree.insert = secondInserter
-	return true
-}
+	bsTree.insert1 = firstInserter
+	bsTree.insert2 = secondInserter
 
-func (bsTree *BSTree) addNode(parent *Node, value int) {
-	if value < parent.value {
-		parent.leftChild = &Node{value: value}
-	} else if value > parent.value {
-		parent.rightChild = &Node{value: value}
-	} else {
-		println("same value detected %s", value)
-	}
+	bsTree.traverserPre = pre
+	bsTree.traverserIn = in
+	bsTree.traverserPost = post
+	return true
 }
 
 func (bsTree *BSTree) Insert(value int) bool {
 	if bsTree.rootNode == nil {
-		return bsTree.Init(value)
+		bsTree.rootNode = &Node{value: value}
+		return true
 	}
 	return bsTree.insert(bsTree.rootNode, value)
 }
+
+func (bsTree *BSTree) Traverse()
 
 type Node struct {
 	leftChild  *Node
