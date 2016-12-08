@@ -22,25 +22,42 @@ type BSTree struct {
 	traverserPost func(*BSTree) []*Node
 }
 
-func (bsTree *BSTree) Init(value int) bool {
+func (bsTree *BSTree) Init(insertMode, traverseMode int) bool {
+	bsTree.insertMode = insertMode
 	bsTree.insert1 = firstInserter
 	bsTree.insert2 = secondInserter
 
+	bsTree.traverseMode = traverseMode
 	bsTree.traverserPre = pre
 	bsTree.traverserIn = in
 	bsTree.traverserPost = post
 	return true
 }
 
-func (bsTree *BSTree) Insert(value int) bool {
+func (bsTree *BSTree) Insert(value int) (ret bool) {
 	if bsTree.rootNode == nil {
 		bsTree.rootNode = &Node{value: value}
 		return true
 	}
-	return bsTree.insert(bsTree.rootNode, value)
+	if bsTree.insertMode == INSERT1 {
+		ret = bsTree.insert1(bsTree.rootNode, value)
+	} else if bsTree.insertMode == INSERT2 {
+		ret = bsTree.insert2(bsTree.rootNode, value)
+	}
+	return
 }
 
-func (bsTree *BSTree) Traverse()
+func (bsTree *BSTree) Traverse() (ret []*Node) {
+	switch bsTree.traverseMode {
+	case TRAV_PRE:
+		ret = bsTree.traverserPre(bsTree)
+	case TRAV_IN:
+		ret = bsTree.traverserIn(bsTree)
+	case TRAV_POST:
+		ret = bsTree.traverserPost(bsTree)
+	}
+	return
+}
 
 type Node struct {
 	leftChild  *Node
