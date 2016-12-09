@@ -1,13 +1,16 @@
 package bstree
 
-func pre(bsTree *BSTree) []*Node {
-	return nil
+func pre(root *Node, result []*Node) {
+	result = (append(result, root))
+	if root.leftChild != nil {
+		pre(root.leftChild, result)
+	} else if root.rightChild != nil {
+		pre(root.rightChild, result)
+	}
 }
 
-func in(bsTree *BSTree) []*Node {
-	return nil
+func in(root *Node, result []*Node) {
 }
 
-func post(bsTree *BSTree) []*Node {
-	return nil
+func post(root *Node, result []*Node) {
 }

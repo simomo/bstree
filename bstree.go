@@ -17,9 +17,9 @@ type BSTree struct {
 	insert2    func(*Node, int) bool
 
 	traverseMode  int
-	traverserPre  func(*BSTree) []*Node
-	traverserIn   func(*BSTree) []*Node
-	traverserPost func(*BSTree) []*Node
+	traverserPre  func(*Node, []*Node)
+	traverserIn   func(*Node, []*Node)
+	traverserPost func(*Node, []*Node)
 }
 
 func (bsTree *BSTree) Init(insertMode, traverseMode int) bool {
