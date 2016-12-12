@@ -6,10 +6,8 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	rootVal := 100
-
 	bsTree := &BSTree{}
-	bsTree.Init(rootVal)
+	bsTree.Init(0, 0)
 
 	if bsTree.rootNode == nil || bsTree.rootNode.value != 100 {
 		t.Fail()
@@ -31,5 +29,17 @@ func TestInsert(t *testing.T) {
 	if tree.rootNode == nil {
 		t.Fail()
 	}
+}
 
+func TestTraverPre(t *testing.T) {
+	tree := &BSTree{}
+	tree.Init(0, 0) // insertMode: insert1; traverMode: Pre.
+	treeValues := []int{4, 7, 2, 8, 1, 9, 5}
+
+	for _, value := range treeValues {
+		tree.Insert(value)
+	}
+
+	result := tree.Traverse()
+	t.Log(result)
 }

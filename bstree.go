@@ -22,6 +22,7 @@ type BSTree struct {
 	traverserPost func(*Node, []*Node)
 }
 
+// Init a tree, set insertMode and traverseMode
 func (bsTree *BSTree) Init(insertMode, traverseMode int) bool {
 	bsTree.insertMode = insertMode
 	bsTree.insert1 = firstInserter
@@ -50,11 +51,11 @@ func (bsTree *BSTree) Insert(value int) (ret bool) {
 func (bsTree *BSTree) Traverse() (ret []*Node) {
 	switch bsTree.traverseMode {
 	case TRAV_PRE:
-		ret = bsTree.traverserPre(bsTree)
+		bsTree.traverserPre(bsTree.rootNode, ret)
 	case TRAV_IN:
-		ret = bsTree.traverserIn(bsTree)
+		bsTree.traverserIn(bsTree.rootNode, ret)
 	case TRAV_POST:
-		ret = bsTree.traverserPost(bsTree)
+		bsTree.traverserPost(bsTree.rootNode, ret)
 	}
 	return
 }
