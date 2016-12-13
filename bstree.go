@@ -1,5 +1,9 @@
 package bstree
 
+import (
+	"fmt"
+)
+
 const (
 	INSERT1 = iota
 	INSERT2
@@ -38,6 +42,7 @@ func (bsTree *BSTree) Init(insertMode, traverseMode int) bool {
 func (bsTree *BSTree) Insert(value int) (ret bool) {
 	if bsTree.rootNode == nil {
 		bsTree.rootNode = &Node{value: value}
+		fmt.Printf("set rootNode %d\n", bsTree.rootNode.value)
 		return true
 	}
 	if bsTree.insertMode == INSERT1 {
