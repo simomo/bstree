@@ -40,15 +40,16 @@ func (bsTree *BSTree) Init(insertMode, traverseMode int) bool {
 }
 
 func (bsTree *BSTree) Insert(value int) (ret bool) {
+	fmt.Printf("Inserting rootNode:%+v , value:%d\n", bsTree.rootNode, value)
 	if bsTree.rootNode == nil {
 		bsTree.rootNode = &Node{value: value}
 		fmt.Printf("set rootNode %d\n", bsTree.rootNode.value)
-		return true
-	}
-	if bsTree.insertMode == INSERT1 {
-		ret = bsTree.insert1(bsTree.rootNode, value)
+		ret = true
+	} else if bsTree.insertMode == INSERT1 {
+		//ret = bsTree.insert1(bsTree.rootNode, value)
+		ret = firstInserter(bsTree.rootNode, value)
 	} else if bsTree.insertMode == INSERT2 {
-		ret = bsTree.insert2(bsTree.rootNode, value)
+		ret = secondInserter(bsTree.rootNode, value)
 	}
 	return
 }
@@ -56,11 +57,11 @@ func (bsTree *BSTree) Insert(value int) (ret bool) {
 func (bsTree *BSTree) Traverse() (ret []*Node) {
 	switch bsTree.traverseMode {
 	case TRAV_PRE:
-		bsTree.traverserPre(bsTree.rootNode, ret)
+		pre(bsTree.rootNode, ret)
 	case TRAV_IN:
-		bsTree.traverserIn(bsTree.rootNode, ret)
+		in(bsTree.rootNode, ret)
 	case TRAV_POST:
-		bsTree.traverserPost(bsTree.rootNode, ret)
+		post(bsTree.rootNode, ret)
 	}
 	return
 }

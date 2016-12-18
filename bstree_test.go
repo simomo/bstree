@@ -9,8 +9,9 @@ func TestInit(t *testing.T) {
 	bsTree := &BSTree{}
 	bsTree.Init(0, 0)
 
-	if bsTree.rootNode == nil || bsTree.rootNode.value != 100 {
-		t.Fail()
+	if bsTree.insert1 == nil || bsTree.insert2 == nil || bsTree.traverserIn == nil ||
+		bsTree.traverserPost == nil || bsTree.traverserPre == nil {
+		t.Fail();
 	}
 }
 
