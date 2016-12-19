@@ -42,16 +42,17 @@ func (bsTree *BSTree) Insert(value int) (ret bool) {
 	return
 }
 
-func (bsTree *BSTree) Traverse() (ret []*Node) {
+func (bsTree *BSTree) Traverse() []*Node {
+	var ret []*Node
 	switch bsTree.traverseMode {
 	case TRAV_PRE:
-		pre(bsTree.rootNode, &ret)
+		ret = pre(bsTree.rootNode, ret)
 	case TRAV_IN:
 		in(bsTree.rootNode, ret)
 	case TRAV_POST:
 		post(bsTree.rootNode, ret)
 	}
-	return
+	return ret
 }
 
 type Node struct {

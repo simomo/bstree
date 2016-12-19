@@ -3,6 +3,7 @@ package bstree
 import (
 	"log"
 	"testing"
+	"fmt"
 )
 
 func TestInit(t *testing.T) {
@@ -41,5 +42,8 @@ func TestTraverPre(t *testing.T) {
 	}
 
 	result := tree.Traverse()
+	for _, node := range result {
+		fmt.Printf("Node: %+v\n", node)
+	}
 	t.Log(result)
 }

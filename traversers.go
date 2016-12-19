@@ -2,18 +2,19 @@ package bstree
 
 import "fmt"
 
-func pre(root *Node, result *[]*Node) {
-	result = (append(*result, root))
+func pre(root *Node, result []*Node) []*Node {
+	result = append(result, root)
 	fmt.Printf("Appended node:%+v into result:%+v\n", root, result)
 	if root.leftChild != nil {
 		fmt.Printf("pre traverse left tree: %+v\n", root.leftChild)
-		pre(root.leftChild, result)
-		//fmt.Printf("left tree over\n")
+		result = pre(root.leftChild, result)
 	}
 	if root.rightChild != nil {
 		fmt.Printf("pre traverse right tree: %+v\n", root.rightChild)
-		pre(root.rightChild, result)
+		result = pre(root.rightChild, result)
 	}
+
+	return result
 }
 
 func in(root *Node, result []*Node) {
