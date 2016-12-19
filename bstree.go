@@ -45,7 +45,7 @@ func (bsTree *BSTree) Insert(value int) (ret bool) {
 func (bsTree *BSTree) Traverse() (ret []*Node) {
 	switch bsTree.traverseMode {
 	case TRAV_PRE:
-		pre(bsTree.rootNode, ret)
+		pre(bsTree.rootNode, &ret)
 	case TRAV_IN:
 		in(bsTree.rootNode, ret)
 	case TRAV_POST:
